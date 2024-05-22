@@ -3,6 +3,7 @@ package com.example.pizzaapp;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,38 +60,38 @@ public class MainActivity extends AppCompatActivity {
                 tomatoSauce,
                 mozzarella,
                 basil
-        )));
+        ), 5.99, 7.99, 9.99));
         pizzaList.add(new Pizza("Pepperoni", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
                 pepperoni
-        )));
+        ), 6.99, 8.99, 10.99));
         pizzaList.add(new Pizza("Hawaiian", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
                 ham,
                 pineapple
-        )));
+        ), 7.99, 9.99, 11.99));
         pizzaList.add(new Pizza("BBQ Chicken", Arrays.asList(
                 bbqSauce,
                 mozzarella,
                 chicken,
                 onions
-        )));
+        ), 8.99, 10.99, 12.99));
         pizzaList.add(new Pizza("Veggie", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
                 bellPeppers,
                 onions,
                 olives
-        )));
+        ), 6.99, 8.99, 10.99));
         pizzaList.add(new Pizza("Four Cheese", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
                 parmesan,
                 gorgonzola,
                 goatCheese
-        )));
+        ), 8.99, 10.99, 12.99));
         pizzaList.add(new Pizza("Meat Lover's", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 sausage,
                 bacon,
                 ham
-        )));
+        ), 9.99, 11.99, 13.99));
         pizzaList.add(new Pizza("Supreme", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
@@ -108,19 +109,19 @@ public class MainActivity extends AppCompatActivity {
                 onions,
                 olives,
                 mushrooms
-        )));
+        ), 9.99, 11.99, 13.99));
         pizzaList.add(new Pizza("Buffalo Chicken", Arrays.asList(
                 buffaloSauce,
                 mozzarella,
                 chicken,
                 onions
-        )));
+        ), 8.99, 10.99, 12.99));
         pizzaList.add(new Pizza("Mushroom", Arrays.asList(
                 tomatoSauce,
                 mozzarella,
                 mushrooms,
                 garlic
-        )));
+        ), 6.99, 8.99, 10.99));
 
         pizzaAdapter = new PizzaAdapter(pizzaList);
         recyclerView.setAdapter(pizzaAdapter);
