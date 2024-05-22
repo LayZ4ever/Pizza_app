@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -29,6 +30,12 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         holder.pizzaIngredients.setText(pizza.getIngredientsString());
         holder.pizzaPrices.setText(String.format("Small: $%.2f | Medium: $%.2f | Large: $%.2f",
                 pizza.getSmallPrice(), pizza.getMediumPrice(), pizza.getLargePrice()));
+
+        holder.itemView.setOnClickListener(v -> {
+            PizzaCustomizationBottomSheet bottomSheet = PizzaCustomizationBottomSheet.newInstance(
+                    pizza.getName(), pizza.getIngredientsString());
+            bottomSheet.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), bottomSheet.getTag());
+        });
     }
 
     @Override
