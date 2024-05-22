@@ -27,6 +27,8 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         Pizza pizza = pizzaList.get(position);
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaIngredients.setText(pizza.getIngredientsString());
+        holder.pizzaPrices.setText(String.format("Small: $%.2f | Medium: $%.2f | Large: $%.2f",
+                pizza.getSmallPrice(), pizza.getMediumPrice(), pizza.getLargePrice()));
     }
 
     @Override
@@ -35,12 +37,13 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     }
 
     static class PizzaViewHolder extends RecyclerView.ViewHolder {
-        TextView pizzaName, pizzaIngredients;
+        TextView pizzaName, pizzaIngredients, pizzaPrices;
 
         public PizzaViewHolder(@NonNull View itemView) {
             super(itemView);
             pizzaName = itemView.findViewById(R.id.pizza_name);
             pizzaIngredients = itemView.findViewById(R.id.pizza_ingredients);
+            pizzaPrices = itemView.findViewById(R.id.pizza_prices);
         }
     }
 }
