@@ -4,29 +4,42 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.pizzaapp.ingredients.Ingredient;
+import com.example.pizzaapp.utils.SelectionUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.radiobutton.MaterialRadioButton;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PizzaCustomizationBottomSheet extends BottomSheetDialogFragment {
 
-    private static final String ARG_PIZZA_NAME = "pizza_name";
-    private static final String ARG_INGREDIENTS = "ingredients";
+    private static final String ARG_PIZZA = "selected_pizza";
+    private static final String ARG_SAUCES = "full_sauces";
+    private static final String ARG_CHEESES = "full_cheeses";
+    private static final String ARG_MEATS = "full_meats";
+    private static final String ARG_VEGETABLES = "full_vegetables";
 
-    private String pizzaName;
-    private String ingredients;
+    private Pizza selectedPizza;
+    private List<Ingredient> fullSauces;
+    private List<Ingredient> fullCheeses;
+    private List<Ingredient> fullMeats;
+    private List<Ingredient> fullVegetables;
 
-    public static PizzaCustomizationBottomSheet newInstance(String pizzaName, String ingredients) {
+    public static PizzaCustomizationBottomSheet newInstance(Pizza selectedPizza, List<Ingredient> fullSauces, List<Ingredient> fullCheeses, List<Ingredient> fullMeats, List<Ingredient> fullVegetables) {
         PizzaCustomizationBottomSheet fragment = new PizzaCustomizationBottomSheet();
         Bundle args = new Bundle();
-        args.putString(ARG_PIZZA_NAME, pizzaName);
-        args.putString(ARG_INGREDIENTS, ingredients);
+        args.putParcelable(ARG_PIZZA, selectedPizza);
+        args.putParcelableArrayList(ARG_SAUCES, new ArrayList<>(fullSauces));
+        args.putParcelableArrayList(ARG_CHEESES, new ArrayList<>(fullCheeses));
+        args.putParcelableArrayList(ARG_MEATS, new ArrayList<>(fullMeats));
+        args.putParcelableArrayList(ARG_VEGETABLES, new ArrayList<>(fullVegetables));
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,54 +50,38 @@ public class PizzaCustomizationBottomSheet extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_pizza_customization, container, false);
 
         if (getArguments() != null) {
-            pizzaName = getArguments().getString(ARG_PIZZA_NAME);
-            ingredients = getArguments().getString(ARG_INGREDIENTS);
+            selectedPizza = getArguments().getParcelable(ARG_PIZZA);
+            fullSauces = getArguments().getParcelableArrayList(ARG_SAUCES);
+            fullCheeses = getArguments().getParcelableArrayList(ARG_CHEESES);
+            fullMeats = getArguments().getParcelableArrayList(ARG_MEATS);
+            fullVegetables = getArguments().getParcelableArrayList(ARG_VEGETABLES);
         }
 
         TextView pizzaNameTextView = view.findViewById(R.id.pizza_name);
         TextView ingredientsTextView = view.findViewById(R.id.pizza_ingredients);
-        pizzaNameTextView.setText(pizzaName);
-        ingredientsTextView.setText(ingredients);
+        pizzaNameTextView.setText(selectedPizza.getName());
+        ingredientsTextView.setText(selectedPizza.getIngredientsString());
 
         // Size selection
         RadioGroup sizeGroup = view.findViewById(R.id.size_group);
-        sizeGroup.addView(createRadioButton("Small"));
-        sizeGroup.addView(createRadioButton("Medium"));
-        sizeGroup.addView(createRadioButton("Large"));
+        List<String> sizes = Arrays.asList("Small", "Medium", "Large");
+        SelectionUtils.createAndSelectRadioButtons(getContext(), sizeGroup, sizes, "Medium");
 
         // Sauce selection
         RadioGroup sauceGroup = view.findViewById(R.id.sauce_group);
-        sauceGroup.addView(createRadioButton("Tomato Sauce"));
-        sauceGroup.addView(createRadioButton("BBQ Sauce"));
-        sauceGroup.addView(createRadioButton("Alfredo Sauce"));
-        sauceGroup.addView(createRadioButton("Pesto Sauce"));
-        sauceGroup.addView(createRadioButton("Buffalo Sauce"));
+        SelectionUtils.createAndSelectRadioButtons(getContext(), sauceGroup, getIngredientNames(fullSauces), getDefaultSauce(selectedPizza));
 
         // Cheese selection
         LinearLayout cheeseGroup = view.findViewById(R.id.cheese_group);
-        cheeseGroup.addView(createCheckBox("Mozzarella"));
-        cheeseGroup.addView(createCheckBox("Cheddar"));
-        cheeseGroup.addView(createCheckBox("Parmesan"));
-        cheeseGroup.addView(createCheckBox("Gorgonzola"));
-        cheeseGroup.addView(createCheckBox("Goat Cheese"));
+        SelectionUtils.createAndSelectCheckBoxes(getContext(), cheeseGroup, fullCheeses, extractDefaultIngredients(selectedPizza, "Cheese"));
 
         // Meat selection
         LinearLayout meatGroup = view.findViewById(R.id.meat_group);
-        meatGroup.addView(createCheckBox("Pepperoni"));
-        meatGroup.addView(createCheckBox("Sausage"));
-        meatGroup.addView(createCheckBox("Bacon"));
-        meatGroup.addView(createCheckBox("Ham"));
-        meatGroup.addView(createCheckBox("Chicken"));
+        SelectionUtils.createAndSelectCheckBoxes(getContext(), meatGroup, fullMeats, extractDefaultIngredients(selectedPizza, "Meat"));
 
         // Vegetables selection
         LinearLayout vegetableGroup = view.findViewById(R.id.vegetable_group);
-        vegetableGroup.addView(createCheckBox("Bell Peppers"));
-        vegetableGroup.addView(createCheckBox("Onions"));
-        vegetableGroup.addView(createCheckBox("Olives"));
-        vegetableGroup.addView(createCheckBox("Mushrooms"));
-        vegetableGroup.addView(createCheckBox("Garlic"));
-        vegetableGroup.addView(createCheckBox("Spinach"));
-        vegetableGroup.addView(createCheckBox("Tomatoes"));
+        SelectionUtils.createAndSelectCheckBoxes(getContext(), vegetableGroup, fullVegetables, extractDefaultIngredients(selectedPizza, "Vegetable"));
 
         // Confirm button
         view.findViewById(R.id.button_confirm).setOnClickListener(v -> {
@@ -95,15 +92,27 @@ public class PizzaCustomizationBottomSheet extends BottomSheetDialogFragment {
         return view;
     }
 
-    private RadioButton createRadioButton(String text) {
-        RadioButton radioButton = new MaterialRadioButton(getContext());
-        radioButton.setText(text);
-        return radioButton;
+    private List<String> getIngredientNames(List<Ingredient> ingredients) {
+        List<String> names = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            names.add(ingredient.getName());
+        }
+        return names;
     }
 
-    private CheckBox createCheckBox(String text) {
-        CheckBox checkBox = new CheckBox(getContext());
-        checkBox.setText(text);
-        return checkBox;
+    private String getDefaultSauce(Pizza pizza) {
+        List<Ingredient> sauces = pizza.getIngredientsByType("Sauce");
+        if (!sauces.isEmpty()) {
+            return sauces.get(0).getName(); // Assuming the first sauce is the default
+        }
+        return "";
+    }
+
+    private List<String> extractDefaultIngredients(Pizza pizza, String type) {
+        List<String> defaultIngredients = new ArrayList<>();
+        for (Ingredient ingredient : pizza.getIngredientsByType(type)) {
+            defaultIngredients.add(ingredient.getName().toLowerCase());
+        }
+        return defaultIngredients;
     }
 }
