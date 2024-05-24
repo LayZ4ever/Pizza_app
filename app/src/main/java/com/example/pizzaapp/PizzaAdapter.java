@@ -31,8 +31,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
-        Pizza pizza = pizzaList.get(position);
-        holder.bind(pizza, listener);
+        holder.bind(pizzaList.get(position), listener);
     }
 
     @Override

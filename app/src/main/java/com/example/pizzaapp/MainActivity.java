@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pizzaapp.ingredients.Ingredient;
 import com.example.pizzaapp.utils.IngredientUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PizzaAdapter.OnPizzaClickListener {
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements PizzaAdapter.OnPi
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Pizzeria");
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,8 +43,7 @@ public class MainActivity extends AppCompatActivity implements PizzaAdapter.OnPi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_cart) {
+        if (item.getItemId() == R.id.action_cart) {
             // Handle cart icon click
             return true;
         }
@@ -56,13 +52,11 @@ public class MainActivity extends AppCompatActivity implements PizzaAdapter.OnPi
 
     @Override
     public void onPizzaClick(Pizza pizza) {
-        // Full list of possible ingredients
         List<Ingredient> fullSauces = IngredientUtils.getFullSauces(pizzaList);
         List<Ingredient> fullCheeses = IngredientUtils.getFullCheeses(pizzaList);
         List<Ingredient> fullMeats = IngredientUtils.getFullMeats(pizzaList);
         List<Ingredient> fullVegetables = IngredientUtils.getFullVegetables(pizzaList);
 
-        // Show the customization bottom sheet
         PizzaCustomizationBottomSheet customizationBottomSheet = PizzaCustomizationBottomSheet.newInstance(
                 pizza, fullSauces, fullCheeses, fullMeats, fullVegetables);
         customizationBottomSheet.show(getSupportFragmentManager(), customizationBottomSheet.getTag());

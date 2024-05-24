@@ -4,26 +4,26 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/pizza_item_background"
     android:layout_margin="8dp">
 
     <TextView
         android:id="@+id/pizza_name"
-        style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/pizza_ingredients"
-        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/pizza_prices"
-        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textSize="14sp" />
 </LinearLayout>
