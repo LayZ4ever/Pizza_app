@@ -1,25 +1,45 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
     </style>
 
-    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+
+    <!-- Custom Bottom Sheet Dialog Theme -->
+    <style name="CustomBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
     </style>
 
-    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+    <!-- Custom Bottom Sheet Style -->
+    <style name="CustomBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.BottomSheet</item>
     </style>
 
+    <!-- Custom Shape for Bottom Sheet -->
     <style name="ShapeAppearanceOverlay.BottomSheet" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeTopRight">16dp</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="TitleTextStyle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SubtitleTextStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="ButtonTextStyle" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

@@ -9,25 +9,21 @@
 
     <TextView
         android:id="@+id/pizza_name"
+        style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@android:color/black" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/pizza_ingredients"
+        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray" />
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/pizza_prices"
+        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="8dp" />
 </LinearLayout>
